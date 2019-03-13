@@ -82,5 +82,22 @@ public class DAO {
 		return result;
 	}
 
-
+        /**
+         * Modifie la rate dans la table DISCOUNT_CODE
+         * @param taux la valeur rate à modifier
+         * @param code la clé de l'enregistrement à modifier
+         * @return le taux modifié dans la ligne concernée
+         * @throws SQLException 
+         */
+         public int updateRate(float taux, String code) throws SQLException{
+            int result = 0;
+            String sql = "UPDATE DISCOUNT_CODE SET RATE = ? WHERE DISCOUNT_CODE = ? ";
+            try (Connection connection = myDataSource.getConnection(); 
+		     PreparedStatement stmt = connection.prepareStatement(sql)) {
+			stmt.setFloat(1, taux);
+                        stmt.setString(2, code);
+			result = stmt.executeUpdate();
+		}
+		return result;
+         }
 }
